@@ -31,7 +31,7 @@ command=$1
 
 # 
 if [ "$command" != 'setup' ] && [ "$command" != 'vhost' ]; then
-	echo $"Invalide choice.\nPlease choose either setup or vhost"
+	echo -e $"Invalide choice.\nPlease choose either setup or vhost"
 	exit 1;
 fi
 

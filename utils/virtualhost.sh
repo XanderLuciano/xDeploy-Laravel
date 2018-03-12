@@ -81,52 +81,54 @@ if [ "$action" == 'create' ]
 		fi
 
 		# Create virtual host
-		if ! echo "server {
-			listen 80;
-			listen [::] 80;
-			
-			server_name $domain;
-			
-			root $userDir$rootDir;
-			
-			index index.php index.html index.htm;
-			
-			location / {
-				try_files $uri $uri/ /index.php?$query_string;
-			}
-			
-			# removes trailing slashes (prevents SEO duplicate content issues)
-			if (!-d \$request_filename) {
-				rewrite ^/(.+)/\$ /\$1 permanent;
-			}
-			
-			# unless the request is for a valid file (image, js, css, etc.), send to bootstrap
-			#if (!-e \$request_filename) {
-			#	rewrite ^/(.*)\$ /index.php?/\$1 last;
-			#	break;
-			#}
-			
-			# removes trailing 'index' from all controllers
-			#if (\$request_uri ~* index/?\$) {
-			#	rewrite ^/(.*)/index/?\$ /\$1 permanent;
-			#}
-			
-			# catch all
-			location ~ \.php$ {
-				try_files \$uri /index.php =404;
-				fastcgi_split_path_info ^(.+\.php)(/.+)\$;
-				#fastcgi_pass 127.0.0.1:9000;
-				fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
-				fastcgi_index index.php;
-				fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-				include fastcgi_params;
-			}
-			
-			location ~ /\.ht {
-				deny all;
-			}
-		}" > $sitesAvailable$domain
-		then
+		if ! echo 
+"server {
+	listen 80;
+	listen [::]:80;
+	
+	server_name $domain;
+	
+	root $userDir$rootDir;
+	
+	index index.php index.html index.htm;
+	
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
+	
+	# removes trailing slashes (prevents SEO duplicate content issues)
+	if (!-d \$request_filename) {
+		rewrite ^/(.+)/\$ /\$1 permanent;
+	}
+	
+	# unless the request is for a valid file (image, js, css, etc.), send to bootstrap
+	#if (!-e \$request_filename) {
+	#	rewrite ^/(.*)\$ /index.php?/\$1 last;
+	#	break;
+	#}
+	
+	# removes trailing 'index' from all controllers
+	#if (\$request_uri ~* index/?\$) {
+	#	rewrite ^/(.*)/index/?\$ /\$1 permanent;
+	#}
+	
+	# catch all
+	location ~ \.php$ {
+		try_files \$uri /index.php =404;
+		fastcgi_split_path_info ^(.+\.php)(/.+)\$;
+		#fastcgi_pass 127.0.0.1:9000;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		include fastcgi_params;
+	}
+	
+	location ~ /\.ht {
+		deny all;
+	}
+}" > $sitesAvailable$domain
+
+	then
 			echo -e $"There was an error creating the $domain file."
 			exit;
 		else
