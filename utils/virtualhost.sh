@@ -81,17 +81,6 @@ if [ "$action" == 'create' ]
 		rewrite ^/(.+)/\$ /\$1 permanent;
 	}
 	
-	# unless the request is for a valid file (image, js, css, etc.), send to bootstrap
-	#if (!-e \$request_filename) {
-	#	rewrite ^/(.*)\$ /index.php?/\$1 last;
-	#	break;
-	#}
-	
-	# removes trailing 'index' from all controllers
-	#if (\$request_uri ~* index/?\$) {
-	#	rewrite ^/(.*)/index/?\$ /\$1 permanent;
-	#}
-	
 	# catch all
 	location ~ \.php$ {
 		try_files \$uri /index.php =404;
@@ -99,7 +88,7 @@ if [ "$action" == 'create' ]
 		#fastcgi_pass 127.0.0.1:9000;
 		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
 		fastcgi_index index.php;
-		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
 		include fastcgi_params;
 	}
 	
