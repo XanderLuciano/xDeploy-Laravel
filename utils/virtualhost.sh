@@ -73,7 +73,7 @@ if [ "$action" == 'create' ]
 	index index.php index.html index.htm;
 	
 	location / {
-		try_files $uri $uri/ /index.php?$query_string;
+		try_files \$uri \$uri/ /index.php?\$query_string;
 	}
 	
 	# removes trailing slashes (prevents SEO duplicate content issues)
