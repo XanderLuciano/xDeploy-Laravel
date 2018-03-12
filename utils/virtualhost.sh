@@ -82,11 +82,14 @@ if [ "$action" == 'create' ]
 
 		# Create virtual host
 		if ! echo "server {
-			listen   80;
+			listen 80;
+			listen [::] 80;
+			
+			server_name $domain;
 			
 			root $userDir$rootDir;
+			
 			index index.php index.html index.htm;
-			server_name $domain;
 			
 			# serve static files directly
 			location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {
