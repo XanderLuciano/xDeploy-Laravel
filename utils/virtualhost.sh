@@ -61,28 +61,8 @@ if [ "$action" == 'create' ]
 			exit;
 		fi
 
-		# Check if directory exists
-		if ! [ -d $userDir$rootDir ]; then
-			
-			# Create the directory
-			mkdir $userDir$rootDir
-			
-			# Set directory permissions
-			chmod 755 $userDir$rootDir
-			
-			# Write test file in the new domain dir
-			if ! echo "<?php echo phpinfo(); ?>" > $userDir$rootDir/phpinfo.php
-				then
-					echo $"ERROR: Not able to write in file $userDir/$rootDir/phpinfo.php. Please check permissions."
-					exit;
-			else
-					echo $"Added content to $userDir$rootDir/phpinfo.php."
-			fi
-		fi
-
 		# Create virtual host
-		if ! echo 
-"server {
+		if ! echo "server {
 	listen 80;
 	listen [::]:80;
 	
@@ -172,7 +152,7 @@ if [ "$action" == 'create' ]
 
 		# Check if directory exists or not
 		if [ -d $userDir$rootDir ]; then
-			echo -e $"Delete host root directory ? (s/n)"
+			echo -e $"Delete host root directory ? (Y/n)"
 			read deldir
 
 			if [ "$deldir" == 's' -o "$deldir" == 'S' ]; then
