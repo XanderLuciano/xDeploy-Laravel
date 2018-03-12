@@ -79,4 +79,8 @@ mv deployer.phar /usr/local/bin/dep
 chmod +x /usr/local/bin/dep
 
 # Finished Setting up server
-echo -e "${Green}Setup Finished!${NC}"
+echo -e "${Green}Setup Finished!${NC}\n"
+
+# Addtional Instructions
+echo "Please add the composer bin path to system PATH variable in ~/.profile."
+echo "and just FYI, the path is '$HOME/.config/composer/vendor/bin'"
