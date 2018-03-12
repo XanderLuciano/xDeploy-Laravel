@@ -1,0 +1,38 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+# To set passwd for account:
+# Login as root and run: sudo passwd USERNAME
+
+
+# Packages to auto-install
+packages:
+  - zip
+  - unzip
+  - openssl
+  - nginx
+  - git
+
+# User(s) to create
+# Note: You need to add your SSH key here
+users:
+  - name: USERNAME
+    groups: sudo, www-data
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDU7XVEeWQjj4g1iYhtNjOGRaBNJqWZRXa41uQ9MVMSX2z7WMLLYJgZXBUmLvFWpRT8LBX0vfwcmh9jQJXwIJSbHO4W5sFfiOvP6G0ptQ9/RZ9DrGAmNxY+BUy5qly2a1RbTY/kZDfCeOWBYmBiM+evqMPWjjFLcRimAfCthxGQgomzwWfiu6TuaTUzGOIL2pD8KHUBB3fPLvP+IkIRNrD3RX3Lz6b3YHk1Q+ydd2LEkJSYXRIaDRDk+MJsI6qB+s/qKmk0wdiJhet1YAa48qyyi/6fiIcr20BT1KqDvKFKhCouqQP9A64Eau1Vo3xKVtPv9THhD2Lp2ytx3GDsDwCf xander@DESKTOP-68VJHN4
+    shell: /bin/bash
+
+# Commands to run on creation
+runcmd:
+  # Create root web directories
+  - mkdir /srv/dev
+  - mkdir /srv/staging
+  - mkdir /srv/production
+  
+  # Set permissions
+  - chown -R USERNAME /srv
+  - chgrp -R www-data /srv
+  
+  # TODO: Download & run setup.sh from repo 
