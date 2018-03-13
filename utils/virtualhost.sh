@@ -113,7 +113,7 @@ if [ "$action" == 'create' ]
 		# Enable website
 		ln -s $sitesAvailable$domain $sitesEnable$domain
 
-		# Restart Nginx
+		# Restart nginx
 		service nginx restart
 
 		# Show the finished message
@@ -122,12 +122,12 @@ if [ "$action" == 'create' ]
 	else
 		# Check whether domain already exists
 		if ! [ -e $sitesAvailable$domain ]; then
-			echo -e $"This domain dont exists.\nPlease Try Another one"
+			echo -e $"This domain doesn't exists.\nPlease Try Another one"
 			exit;
 		else
 			# Delete domain in /etc/hosts
-			newhost=${domain//./\\.}
-			sed -i "/$newhost/d" /etc/hosts
+			#newhost=${domain//./\\.}
+			#sed -i "/$newhost/d" /etc/hosts
 
 			# Disable website
 			rm $sitesEnable$domain
