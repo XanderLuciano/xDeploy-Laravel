@@ -11,3 +11,13 @@ Usage:
 ```$ sudo bash /path/to/virtualhost.sh [ create | delete ] [ domain ] [optional: root-directory]```
 
 Where `domain` is the URL of your website and `root-directory` is the path to the public folder.
+
+## setupSSL.sh
+
+This script allows you to easily add an SSL certificate to a domain.
+
+Usage:
+
+```$ sudo bash setupSSL.sh```
+
+This command just runs certbot, so certbot will prompt you for everything needed.
