@@ -26,12 +26,14 @@ White='\033[0;37m'        # White
 
 echo -e "${Green}Starting up!${NC} - Running as: ${Cyan}${curr_user}"
 
-echo "What is the root directory? (normally /srv/SITE or /srv/SITE/dev)"
+echo ""
+
+echo -e "${White}What is the root directory? (normally /srv/SITE or /srv/SITE/dev)"
 
 read dir
-sudo -u $curr_user cd $dir
+# sudo -u $curr_user cd $dir
 
 # set permissions
-chgrp -R www-data *
-chmod 775 -R storage
-chmod 775 -R bootstrap
+chgrp -R www-data $dir
+chmod 775 -R $dir/storage
+chmod 775 -R $dir/bootstrap
