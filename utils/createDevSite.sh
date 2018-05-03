@@ -26,22 +26,21 @@ White='\033[0;37m'        # White
 
 echo -e "${Green}Starting up!${NC} - Running as: ${Cyan}${curr_user}"
 
-echo "What is the root web directory? (normally /srv)"
+echo -e "${White}What is the root web directory? (normally /srv)"
 
 read dir
-sudo -u $curr_user cd $dir
 
-echo "What is the site name?"
+echo "What is the site name? (normally SITENAME)"
 
 read site
-sudo -u $curr_user mkdir $site
-sudo -u $curr_user cd $site
+
+sudo -u $curr_user mkdir $dir/$site
 
 echo "Creating laravel subdirectory..."
 
-sudo -u $curr_user laravel new dev
+sudo -u $curr_user laravel new $dir/$site
 
 # set permissions
-chgrp -R www-data dev
-chmod 775 -R dev/storage
-chmod 775 -R dev/bootstrap
+chgrp -R www-data $dir/$site
+chmod 775 -R $dir/$site/storage
+chmod 775 -R $dir/$site/bootstrap
